@@ -1,0 +1,49 @@
+{
+  "build-tags": ["baremetal", "linux", "amd64"],
+  "llvm-target": "x86_64-unknown-none-elf",
+  "cpu": "x86-64",
+  "features": "+cmov,+cx8,+fxsr,+mmx,+sse,+sse2,+x87",
+  "goos": "linux",
+  "goarch": "amd64",
+  "gc": "leaking",
+  "scheduler": "tasks",
+  "linker": "ld.lld",
+  "linker-flavor": "gnu",
+  "libc": "none",
+  "automatic-stack-size": false,
+  "default-stack-size": 65536,
+  "cflags": [
+    "-Werror",
+    "-fshort-enums",
+    "-fomit-frame-pointer",
+    "-fno-exceptions",
+    "-fno-unwind-tables",
+    "-fno-asynchronous-unwind-tables",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-ffreestanding",
+    "-fshort-wchar",
+    "-mno-red-zone",
+    "-mno-mmx",
+    "-mno-sse",
+    "-mno-sse2",
+    "-mno-avx",
+    "-mno-avx2"
+  ],
+  "ldflags": [
+    "-m",
+    "elf_x86_64",
+    "-T",
+    "linker.ld",
+    "--gc-sections",
+    "--no-insert-timestamp",
+    "-z",
+    "max-page-size=0x1000",
+    "-no-pie"
+  ],
+  "extra-files": [
+    "src/device/amd64/cpu_amd64.S",
+    "src/runtime/asm_amd64_linux.S",
+    "src/internal/task/task_stack_amd64.S"
+  ]
+}
